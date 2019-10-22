@@ -1,4 +1,5 @@
 import argparse
+import json
 
 from PySSC import PySSC
 
@@ -11,7 +12,6 @@ if __name__ == "__main__":
                     help="tiliness")
 	args = parser.parse_args()
 	print(args)
-
 	ssc.module_exec_set_print(0)
 	data = ssc.data_create()
 	ssc.data_set_string( data, b'solar_resource_file', b'/home/batmanuel/Downloads/SAM/solar_resource/phoenix_az_33.450495_-111.983688_psmv3_60_tmy.csv' );
@@ -290,6 +290,16 @@ if __name__ == "__main__":
 			idx = idx + 1
 		SystemExit( "Simulation Error" );
 	ssc.module_free(module)
+	"""
+		output = {
+			"annualEnergy": ssc.data_get_number(data, b'annual_energy'),
+			"other stuff": getdata
+		}
+		print(json.dumps(output))
+		# x = {"key":"value"}
+		# json.dumps(x)
+		# '{"key": "value"}'
+	"""
 	annual_energy = ssc.data_get_number(data, b'annual_energy');
 	print ('Annual energy (year 1) = ', annual_energy)
 	capacity_factor = ssc.data_get_number(data, b'capacity_factor');
